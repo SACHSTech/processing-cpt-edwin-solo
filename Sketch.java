@@ -2,13 +2,14 @@ import processing.core.PApplet;
 
 public class Sketch extends PApplet {
 	
+  int[][] tiles = new int[20][15];
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
-    size(400, 400);
+    size(1000, 800);
   }
 
   /** 
@@ -16,20 +17,18 @@ public class Sketch extends PApplet {
    * values here i.e background, stroke, fill etc.
    */
   public void setup() {
-    background(210, 255, 173);
+    background(12, 0, 6);
   }
 
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
-
-    stroke(255);
-    line(50, 125, 70, 50);  
+    for (int ) {
+      for (int  ){
+        
+      }
+    }
   }
   
   // define other methods down here.
