@@ -87,4 +87,26 @@ public class Enemies {
         
     }
 
+
+    public void moveUp(){
+        if (!Map.getTile(x, (y-1) ).type.equals("wall") ){
+            y--;
+        } else if (Map.getTile(x, (y-1) ).enemy != null){
+            Map.getTile(x, (y-1) ).enemy.hp--;
+        } else if (Map.getTile(x, (y - 1) ).player){
+            Player.hp--;
+        }
+    }
+
+    public void moveDown(){
+        y++;
+    }
+
+    public void moveLeft(){
+        x--;
+    }
+
+    public void moveRight(){
+        x++;
+    }
 }

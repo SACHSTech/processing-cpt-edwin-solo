@@ -3,10 +3,8 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 
 public class Sketch extends PApplet {
-	
-  int[][] tiles = new int[20][15];
 
-  ArrayList <Enemies> enemies;
+  
 
 
 	
@@ -25,21 +23,13 @@ public class Sketch extends PApplet {
   public void setup() {
     background(15, 0, 6);
 
-    enemies.add(new Enemies.Skeleton(4, 4, millis()) ); // Joe
-
-    for (){
-
-    }
-
   }
 
   /**
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-    for () {
-      
-    }
+    
   }
   
   public void buttonPressed(){
