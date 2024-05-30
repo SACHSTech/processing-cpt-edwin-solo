@@ -8,6 +8,7 @@ public class Enemies {
     int attack;
     int attackTime;
     long spawnTime;
+    PImage enemySprite;
     Enemies(int Xposition, int Yposition, long millis){
         x = Xposition;
         y = Yposition;

@@ -1,12 +1,10 @@
-import java.util.ArrayList;
-
 import processing.core.PApplet;
 
 public class Sketch extends PApplet {
 
-  
+  Player player = new Player(500, 400);
 
-
+  Map map = new Map(20, 15);
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -29,10 +27,16 @@ public class Sketch extends PApplet {
    * Called repeatedly, anything drawn to the screen goes here
    */
   public void draw() {
-    
+    background(15, 0, 6);
+    displayPlayer();
   }
   
-  public void buttonPressed(){
+  public void keyPressed(){
+    if ('w' == key){player.y = 5;}
+    if ('a' == key){player.x = 5;}
+    if ('s' == key){player.y = 5;}
+    if ('d' == key){player.x = 5;}
+
     if (ESC == keyCode){
 
     }
@@ -41,10 +45,33 @@ public class Sketch extends PApplet {
     }
   }
 
+  public void keyReleased(){
+    if ('w' == key){player.y = 5;}
+    if ('a' == key){player.x = 5;}
+    if ('s' == key){player.y = 5;}
+    if ('d' == key){player.x = 5;}
+  }
+
   public void mousePressed(){
     if (LEFT == mouseButton){
 
     }
   }
-  // define other methods down here.
+  
+  public void displayPlayer(){
+    circle( (int)player.getX(), (int)player.getY(), 20);
+  }
+
+  public void displayEnemies(){
+
+  }
+
+  public void displayMap(){
+    for (Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
+      for (Tile tile : row){
+        
+      }
+    }
+  }
+
 }
