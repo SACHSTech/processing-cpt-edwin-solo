@@ -2,7 +2,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Tile {
-    static int x, y;
+    int x, y;
     boolean player;
     Enemies enemy;
     Drops loot;
@@ -14,11 +14,16 @@ public class Tile {
         type = TileType;
     }
 
-    public static int getX() {
+    public void update(){
+        
+        if (TileX.player == x && TileY.player == y){}
+    }
+
+    public int getX() {
         return x;
     }
 
-    public static int getY() {
+    public int getY() {
         return y;
     }
 

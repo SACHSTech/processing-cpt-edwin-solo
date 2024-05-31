@@ -2,6 +2,7 @@ import processing.core.PApplet;
 
 public class Player {
     float x, y, xVel, yVel;
+    double moveSpeed = 5;
     int TileX, TileY;
     int hp;
     Drops weapon;
@@ -17,9 +18,6 @@ public class Player {
     public void update(){
         x += xVel;
         y += yVel;
-        TileX = (int)(x / 50);
-        TileY = (int)( (25 + y) / 50);
-        Map.getTile(TileX, TileY).player = true;
     }
 
     public float getX() {
@@ -30,7 +28,17 @@ public class Player {
         return y;
     }
 
+    public int getTileX() {
+        return TileX;
+    }
+    
+    public int getTileY() {
+        return TileY;
+    }
+
     public Tile getTile(){
+        TileX = (int)(x / 50);
+        TileY = (int)( (25 + y) / 50);
         return Map.getTile(TileX, TileY);
     }
 }

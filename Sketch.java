@@ -28,14 +28,16 @@ public class Sketch extends PApplet {
    */
   public void draw() {
     background(15, 0, 6);
+    displayMap();
+    player.update();
     displayPlayer();
   }
   
   public void keyPressed(){
-    if ('w' == key){player.y = 5;}
-    if ('a' == key){player.x = 5;}
-    if ('s' == key){player.y = 5;}
-    if ('d' == key){player.x = 5;}
+    if ('w' == key){player.yVel = -5;}
+    if ('a' == key){player.xVel = -5;}
+    if ('s' == key){player.yVel = 5;}
+    if ('d' == key){player.xVel = 5;}
 
     if (ESC == keyCode){
 
@@ -46,10 +48,10 @@ public class Sketch extends PApplet {
   }
 
   public void keyReleased(){
-    if ('w' == key){player.y = 5;}
-    if ('a' == key){player.x = 5;}
-    if ('s' == key){player.y = 5;}
-    if ('d' == key){player.x = 5;}
+    if ('w' == key){player.yVel = 0;}
+    if ('a' == key){player.xVel = 0;}
+    if ('s' == key){player.yVel = 0;}
+    if ('d' == key){player.xVel = 0;}
   }
 
   public void mousePressed(){
@@ -69,7 +71,10 @@ public class Sketch extends PApplet {
   public void displayMap(){
     for (Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
       for (Tile tile : row){
-        
+        if (tile.player){
+          fill(0,255,0);
+        } else {fill(255);}
+        rect(tile.getX() * 50, tile.getY() * 50, 50, 50);
       }
     }
   }
