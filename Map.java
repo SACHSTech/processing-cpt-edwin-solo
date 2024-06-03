@@ -9,10 +9,12 @@ public class Map {
 
         for (int i = 0; i < XTiles; i++){
             for (int j = 0; j < YTiles; j++){
+                
                 if (0 == i || XTiles == i || 0 == j || YTiles == j){
                     map[i][j] = new Tile(i, j, "wall");
                 } else {
-                    map[i][j] = new Tile(i, j, "floor");
+
+                    map[i][j] = new Tile.Floor(i, j, "floor");
                 }
             }
         }

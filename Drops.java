@@ -1,6 +1,13 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
-public class Drops {
+public class Drops extends PApplet{
+
+    PImage bow, sword, sheild, health;
+    public void setup() {
+        
+    }
+
     int x, y;
     int damage;
     Drops(int XCord, int YCord){

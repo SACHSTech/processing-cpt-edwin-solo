@@ -1,7 +1,14 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Enemies {
+public class Enemies extends PApplet {
+
+    PImage skeletonSprite;
+
+    public void setup() {
+        skeletonSprite = loadImage("Skeleton.png");
+    }
+
     int x, y;
     int hp;
     int move;
@@ -24,6 +31,7 @@ public class Enemies {
             move = 4;
             attack = 2;
             attackTime = 4;
+            enemySprite = skeletonSprite;
         }
     }
 
@@ -88,6 +96,16 @@ public class Enemies {
         
     }
 
+    class Pillar extends Enemies{
+        Pillar(int Xposition, int Yposition, long millis) {
+            super(Xposition, Yposition, millis);
+            hp = 5000;
+            move = -1;
+            attack = 0;
+            attackTime = -1;
+        }
+    }
+
     /*
     public void moveUp(){
         if (!Map.getTile(x, (y-1) ).type.equals("wall") ){
@@ -110,5 +128,13 @@ public class Enemies {
 
     public void moveRight(){
         x++;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public PImage getEnemySprite() {
+        return enemySprite;
     }
 }

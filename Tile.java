@@ -1,7 +1,19 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Tile {
+public class Tile extends PApplet{
+
+    PImage floor, backWall, rightWall, leftWall, rightCorner, leftCorner;
+
+    public void setup() {
+        floor = loadImage("DungeonTile");
+        backWall = loadImage("DungeonBackWall");
+        rightWall = loadImage("DungeonRightWall");
+        leftWall = loadImage("DungeonLeftWall");
+        rightCorner = loadImage("DungeonRightCornerWall");
+        leftCorner = loadImage("DungeonLeftCornerWall");
+    }
+
     int x, y;
     boolean playerSpace;
     Enemies enemy;
@@ -13,6 +25,13 @@ public class Tile {
         y = YCord;
         type = TileType;
     }
+
+        class Floor extends Tile{
+            Floor(int XCord, int YCord, String TileType){
+            super(XCord, YCord, TileType);
+            tileSprite = floor;
+            }
+        }
 
     public void update(Player player){
         if (player.getTileX() == x && player.getTileY() == y){
@@ -30,8 +49,8 @@ public class Tile {
         return y;
     }
 
-    public void displayTile() {
-        
+    public PImage getTileSprite() {
+        return tileSprite;
     }
 
 }
