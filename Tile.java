@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 public class Tile {
     int x, y;
-    boolean player;
+    boolean playerSpace;
     Enemies enemy;
     Drops loot;
     String type;
@@ -14,9 +14,12 @@ public class Tile {
         type = TileType;
     }
 
-    public void update(){
-        
-        if (TileX.player == x && TileY.player == y){}
+    public void update(Player player){
+        if (player.getTileX() == x && player.getTileY() == y){
+            playerSpace = true;
+        } else {
+            playerSpace = false;
+        }
     }
 
     public int getX() {

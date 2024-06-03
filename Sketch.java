@@ -71,10 +71,11 @@ public class Sketch extends PApplet {
   public void displayMap(){
     for (Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
       for (Tile tile : row){
-        if (tile.player){
+        tile.update(player);
+        if (tile.playerSpace){
           fill(0,255,0);
         } else {fill(255);}
-        rect(tile.getX() * 50, tile.getY() * 50, 50, 50);
+        rect(tile.getX() * 50, (tile.getY() * 50) + 25, 50, 50);
       }
     }
   }
