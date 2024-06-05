@@ -39,9 +39,9 @@ public class Player {
         return TileY;
     }
 
-    public Tile getTile(){
-        TileX = (int)(x / 50);
-        TileY = (int)( (y - 25) / 50);
+    public Tile getTile(float XDis, float YDis){
+        TileX = (int)( (x + XDis) / 50);
+        TileY = (int)( (y + YDis - 25) / 50);
         return Map.getTile(TileX, TileY);
     }
 }

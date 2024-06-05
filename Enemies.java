@@ -3,19 +3,13 @@ import processing.core.PImage;
 
 public class Enemies extends PApplet {
 
-    PImage skeletonSprite;
-
-    public void setup() {
-        skeletonSprite = loadImage("Skeleton.png");
-    }
-
     int x, y;
     int hp;
     int move;
     int attack;
     int attackTime;
     long spawnTime;
-    PImage enemySprite;
+    int spriteID;
     Enemies(int Xposition, int Yposition, long millis){
         x = Xposition;
         y = Yposition;
@@ -31,7 +25,7 @@ public class Enemies extends PApplet {
             move = 4;
             attack = 2;
             attackTime = 4;
-            enemySprite = skeletonSprite;
+            spriteID = 6;
         }
     }
 
@@ -134,7 +128,7 @@ public class Enemies extends PApplet {
         return hp;
     }
 
-    public PImage getEnemySprite() {
-        return enemySprite;
+    public int getSpriteID() {
+        return spriteID;
     }
 }

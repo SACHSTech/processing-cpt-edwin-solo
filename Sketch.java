@@ -6,6 +6,8 @@ public class Sketch extends PApplet {
   Player player = new Player(500, 400);
 
   Map map = new Map(20, 15);
+
+  PImage[] sprites;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -22,6 +24,16 @@ public class Sketch extends PApplet {
   public void setup() {
     background(15, 0, 6);
 
+    sprites = new PImage[]{
+      loadImage("DungeonTile"),             // id 0
+      loadImage("DungeonBackWall"),         
+      loadImage("DungeonRightWall"),        
+      loadImage("DungeonLeftWall"),         
+      loadImage("DungeonRightCornerWall"),  
+      loadImage("DungeonLeftCornerWall"),   // id 5
+      loadImage("Skeleton.png"),            // id 6
+      null
+    };
   }
 
   /**
@@ -72,7 +84,7 @@ public class Sketch extends PApplet {
   public void displayMap(){
     for (Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
       for (Tile tile : row){
-        image(tile.getTileSprite(), tile.getX() * 50, (tile.getY() * 50) + 25);
+        image(sprites [tile.getSpriteID()], tile.getX() * 50, (tile.getY() * 50) + 25);
         tile.update(player);
         if (tile.playerSpace){
           fill(0,255,0,50);

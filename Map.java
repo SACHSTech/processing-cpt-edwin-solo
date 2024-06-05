@@ -11,10 +11,9 @@ public class Map {
             for (int j = 0; j < YTiles; j++){
                 
                 if (0 == i || XTiles == i || 0 == j || YTiles == j){
-                    map[i][j] = new Tile(i, j, "wall");
+                    map[i][j] = new Tile(i, j, false, 1);
                 } else {
-
-                    map[i][j] = new Tile.Floor(i, j, "floor");
+                    map[i][j] = new Tile(i, j, true, 0);
                 }
             }
         }
