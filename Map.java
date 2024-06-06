@@ -27,6 +27,41 @@ public class Map {
         return map;
     }
 
+    public class Tile{
 
+        int x, y;
+        boolean playerSpace, walkable;
+        Enemies enemy;
+        Drops loot;
+        int spriteID;
+        Tile(int XCord, int YCord, boolean accessable, int ID){
+            x = XCord;
+            y = YCord;
+            walkable = accessable;
+            spriteID = ID;
+        }
+    
+        public void update(Player player){
+            if (player.getTileX() == x && player.getTileY() == y){
+                playerSpace = true;
+            } else {
+                playerSpace = false;
+            }
+        }
+    
+        public int getX() {
+            return x;
+        }
+    
+        public int getY() {
+            return y;
+        }
+    
+        public int getSpriteID() {
+            return spriteID;
+        }
+    
+    }
+    
 
 }
