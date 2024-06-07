@@ -5,7 +5,7 @@ public class Sketch extends PApplet {
 
   Player player = new Player(500, 400);
 
-  Map map = new Map(16, 10);
+  Map map = new Map(20, 10);
 
   PImage[] sprites;
 	
@@ -76,7 +76,7 @@ public class Sketch extends PApplet {
   
   public void displayPlayer(){
     fill(255);
-    circle( (int)player.getX(), (int)player.getY(), 20);
+    circle( (int)player.getX(), (int)player.getY(), 30);
   }
 
   public void displayEnemies(){
@@ -84,9 +84,11 @@ public class Sketch extends PApplet {
   }
 
   public void displayMap(){
+    float mapSizeMulti;
+    //if (){}
     for (Map.Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
       for (Map.Tile tile : row){
-        image(sprites[tile.getSpriteID()], tile.getX() * 50, (tile.getY() * 50) + 25);
+        image(sprites[tile.getSpriteID()], tile.getX() * 50, (tile.getY() * 50) + (25 - (sprites[tile.getSpriteID()].height % 50) ) );
         tile.update(player);
         if (tile.playerSpace){
           fill(0,255,0,50);

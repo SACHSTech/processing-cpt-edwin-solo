@@ -1,16 +1,12 @@
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public class Enemies extends PApplet {
 
-    int x, y;
-    int hp;
-    int move;
-    int attack;
-    int attackTime;
-    long spawnTime;
+    int x, y, hp;
+    int move, attack, attackTime;
+    int spawnTime;
     int spriteID;
-    Enemies(int Xposition, int Yposition, long millis){
+    Enemies(int Xposition, int Yposition, int millis){
         x = Xposition;
         y = Yposition;
         spawnTime = millis;
@@ -19,7 +15,7 @@ public class Enemies extends PApplet {
     // 1 "move" || "attackTime" == wait 250 millis before action
 
     class Skeleton extends Enemies{
-        Skeleton(int Xposition, int Yposition, long millis){
+        Skeleton(int Xposition, int Yposition, int millis){
             super(Xposition, Yposition, millis);
             hp = 2;
             move = 4;
@@ -30,7 +26,7 @@ public class Enemies extends PApplet {
     }
 
     class Zombie extends Enemies{
-        Zombie(int Xposition, int Yposition, long millis){
+        Zombie(int Xposition, int Yposition, int millis){
             super(Xposition, Yposition, millis);
             hp = 8;
             move = 6;
@@ -40,7 +36,7 @@ public class Enemies extends PApplet {
     }
 
     class Bat extends Enemies{
-        Bat(int Xposition, int Yposition, long millis){
+        Bat(int Xposition, int Yposition, int millis){
             super(Xposition, Yposition, millis);
             hp = 1;
             move = 2;
@@ -50,7 +46,7 @@ public class Enemies extends PApplet {
     }
 
     class Knight extends Enemies{
-        Knight(int Xposition, int Yposition, long millis){
+        Knight(int Xposition, int Yposition, int millis){
             super(Xposition, Yposition, millis);
             hp = 5;
             move = 4;
@@ -60,7 +56,7 @@ public class Enemies extends PApplet {
     }
 
     class SheildKnight extends Enemies{
-        SheildKnight(int Xposition, int Yposition, long millis){
+        SheildKnight(int Xposition, int Yposition, int millis){
             super(Xposition, Yposition, millis);
             hp = 7;
             move = 6;
@@ -70,7 +66,7 @@ public class Enemies extends PApplet {
     }
 
     class SpearKnight extends Enemies{
-        SpearKnight(int Xposition, int Yposition, long millis){
+        SpearKnight(int Xposition, int Yposition, int millis){
             super(Xposition, Yposition, millis);
             hp = 5;
             move = 4;
@@ -80,7 +76,7 @@ public class Enemies extends PApplet {
     }
     
     class Brute extends Enemies{
-        Brute(int Xposition, int Yposition, long millis) {
+        Brute(int Xposition, int Yposition, int millis) {
             super(Xposition, Yposition, millis);
             hp = 10;
             move = 8;
@@ -91,7 +87,7 @@ public class Enemies extends PApplet {
     }
 
     class Pillar extends Enemies{
-        Pillar(int Xposition, int Yposition, long millis) {
+        Pillar(int Xposition, int Yposition, int millis) {
             super(Xposition, Yposition, millis);
             hp = 5000;
             move = -1;

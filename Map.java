@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import processing.core.PApplet;
 
-public class Map {
+public class Map extends PApplet{
     static ArrayList <Enemies> enemies;
     static Tile[][] map;
 
@@ -10,8 +11,16 @@ public class Map {
         for (int i = 0; i < XTiles; i++){
             for (int j = 0; j < YTiles; j++){
                 
-                if (0 == i || XTiles == i || 0 == j || YTiles == j){
+                if (0 == j && !(0 == i || XTiles == i + 1) ){
                     map[i][j] = new Tile(i, j, false, 1);
+                } else if (0 == i && !(0 == j) ){
+                    map[i][j] = new Tile(i, j, false, 3);
+                } else if (XTiles == i + 1 && !(0 == j) ){
+                    map[i][j] = new Tile(i, j, false, 2);
+                } else if (0 == i && 0 == j){
+                    map[i][j] = new Tile(i, j, false, 5);
+                } else if (XTiles == i + 1 && 0 == j){
+                    map[i][j] = new Tile(i, j, false, 4);
                 } else {
                     map[i][j] = new Tile(i, j, true, 0);
                 }
@@ -63,5 +72,4 @@ public class Map {
     
     }
     
-
 }
