@@ -2,10 +2,16 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 
 public class Map extends PApplet{
+
+    int XLength, YLength;
+
     static ArrayList <Enemies> enemies;
     static Tile[][] map;
 
     Map(int XTiles, int YTiles){
+        XLength = XTiles;
+        YLength = YTiles;
+
         map = new Tile[XTiles][YTiles];
 
         for (int i = 0; i < XTiles; i++){
@@ -36,11 +42,22 @@ public class Map extends PApplet{
         return map;
     }
 
+    public static ArrayList<Enemies> getEnemies() {
+        return enemies;
+    }
+
+    public int getXLength() {
+        return XLength;
+    }
+
+    public int getYLength() {
+        return YLength;
+    }
+
     public class Tile{
 
         int x, y;
         boolean playerSpace, walkable;
-        Enemies enemy;
         Drops loot;
         int spriteID;
         Tile(int XCord, int YCord, boolean accessable, int ID){

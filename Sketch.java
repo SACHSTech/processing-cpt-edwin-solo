@@ -27,14 +27,14 @@ public class Sketch extends PApplet {
     sprites = new PImage[]{
       loadImage("sprites/DungeonTile.png"),             // id 0
       loadImage("sprites/DungeonBackWall.png"),         
-      loadImage("sprites/DungeonRightWall.png"),        
+      loadImage("sprites/DungeonRightWall.png"),        // id 2
       loadImage("sprites/DungeonLeftWall.png"),         
       loadImage("sprites/DungeonRightCornerWall.png"),  
       loadImage("sprites/DungeonLeftCornerWall.png"),   // id 5
-      loadImage("sprites/Skeleton.png"),                // id 6
-      null
+      loadImage("sprites/Pillar.png"),
+      loadImage("sprites/Skeleton.png"),                // id 7
+      
     };
-
   }
 
   /**
@@ -56,6 +56,7 @@ public class Sketch extends PApplet {
     if (ESC == keyCode){
 
     }
+
     if ('e' == key){
 
     }
@@ -84,10 +85,15 @@ public class Sketch extends PApplet {
   }
 
   public void displayMap(){
-    float mapSizeMulti;
-    //if (){}
+    /* float mapSizeMulti;
+    if ( (map.getXLength() * 50) / width <= ( (map.YLength * 50) + 25)/ height){
+      mapSizeMulti = (map.getXLength() * 50) / width;
+    } else {
+      mapSizeMulti = ( (map.YLength * 50) + 25) / height;
+    } */
     for (Map.Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
       for (Map.Tile tile : row){
+        // sprites[tile.getSpriteID()].resize( (int)(sprites[tile.getSpriteID()].width * mapSizeMulti), 0);
         image(sprites[tile.getSpriteID()], tile.getX() * 50, (tile.getY() * 50) + (25 - (sprites[tile.getSpriteID()].height % 50) ) );
         tile.update(player);
         if (tile.playerSpace){
@@ -95,6 +101,10 @@ public class Sketch extends PApplet {
           rect(tile.getX() * 50, (tile.getY() * 50) + 25, 50, 50);
         }
       }
+    }
+
+    for (Enemies enemy : Map.getEnemies() ){
+
     }
   }
 
