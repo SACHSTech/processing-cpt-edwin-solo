@@ -1,6 +1,11 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.io.BufferedReader;
+import java.awt.image.*;
+import java.awt.Graphics2D;
+import java.io.File;
+
 public class Sketch extends PApplet {
 
   Player player = new Player(500, 400);
@@ -111,14 +116,32 @@ public class Sketch extends PApplet {
   // projectile calculatons
   public void projectilecalc(){
     double pAngle;
-    double pXVel, pYVel;
+    double pX, pY;
     int pSpeed = 10;
   
     pAngle = Math.asin( (player.getY() - mouseY) / (Math.sqrt( Math.pow( (player.getX() - mouseX), 2) + Math.pow( (player.getY() - mouseY), 2) ) ) );
-    pXVel = pSpeed * Math.sin(90-pAngle);
-    pYVel = pSpeed * Math.sin(pAngle);
-    if (player.getX() - mouseX < 0){pXVel *= -1;}
+    pX = pSpeed * Math.sin(90-pAngle);
+    pY = pSpeed * Math.sin(pAngle);
+    if (player.getX() - mouseX < 0){
+      pX *= -1;
+    }
   }
-   
   
+  // looking up a way to rotate an image
+  public static BufferedImage rotate(BufferedImage bimg, Double angle) {
+    double sin = Math.abs(Math.sin(Math.toRadians(angle))),
+           cos = Math.abs(Math.cos(Math.toRadians(angle)));
+    int w = bimg.getWidth();
+    int h = bimg.getHeight();
+    int neww = (int) Math.floor(w*cos + h*sin),
+        newh = (int) Math.floor(h*cos + w*sin);
+    BufferedImage rotated = new BufferedImage(neww, newh, bimg.getType());
+    Graphics2D graphic = rotated.createGraphics();
+    graphic.translate((neww-w)/2, (newh-h)/2);
+    graphic.rotate(Math.toRadians(angle), w/2, h/2);
+    graphic.drawRenderedImage(bimg, null);
+    graphic.dispose();
+    return rotated;
+}
+
 }
