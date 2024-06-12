@@ -98,4 +98,17 @@ public class Sketch extends PApplet {
     }
   }
 
+  // projectile calculatons
+  public void projectilecalc(){
+    double pAngle;
+    double pXVel, pYVel;
+    int pSpeed = 10;
+  
+    pAngle = Math.asin( (player.getY() - mouseY) / (Math.sqrt( Math.pow( (player.getX() - mouseX), 2) + Math.pow( (player.getY() - mouseY), 2) ) ) );
+    pXVel = pSpeed * Math.sin(90-pAngle);
+    pYVel = pSpeed * Math.sin(pAngle);
+    if (player.getX() - mouseX < 0){pXVel *= -1;}
+  }
+   
+  
 }
