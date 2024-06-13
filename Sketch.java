@@ -1,18 +1,14 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-import java.io.BufferedReader;
-import java.awt.image.*;
-import java.awt.Graphics2D;
-import java.io.File;
-
 public class Sketch extends PApplet {
 
   Player player = new Player(500, 400);
 
   Map map = new Map(20, 10);
 
-  PImage[] sprites;
+  PImage[] tileSprites;
+  PImage[] enemySprites;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -29,15 +25,19 @@ public class Sketch extends PApplet {
   public void setup() {
     background(15, 0, 6);
 
-    sprites = new PImage[]{
+    tileSprites = new PImage[]{
       loadImage("sprites/DungeonTile.png"),             // id 0
       loadImage("sprites/DungeonBackWall.png"),         
       loadImage("sprites/DungeonRightWall.png"),        // id 2
       loadImage("sprites/DungeonLeftWall.png"),         
       loadImage("sprites/DungeonRightCornerWall.png"),  
       loadImage("sprites/DungeonLeftCornerWall.png"),   // id 5
-      loadImage("sprites/Pillar.png"),
-      loadImage("sprites/Skeleton.png"),                // id 7
+      
+    };
+
+    enemySprites = new PImage[]{
+      loadImage("sprites/Pillar.png"),                  
+      loadImage("sprites/Skeleton.png"),                
       
     };
   }
@@ -79,6 +79,12 @@ public class Sketch extends PApplet {
 
     }
   }
+
+  public void mouseReleased(){
+    if (LEFT == mouseButton){
+
+    }
+  }
   
   public void displayPlayer(){
     fill(255);
@@ -99,7 +105,7 @@ public class Sketch extends PApplet {
     for (Map.Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
       for (Map.Tile tile : row){
         // sprites[tile.getSpriteID()].resize( (int)(sprites[tile.getSpriteID()].width * mapSizeMulti), 0);
-        image(sprites[tile.getSpriteID()], tile.getX() * 50, (tile.getY() * 50) + (25 - (sprites[tile.getSpriteID()].height % 50) ) );
+        image(tileSprites[tile.getSpriteID()], tile.getX() * 50, (tile.getY() * 50) + (25 - (tileSprites[tile.getSpriteID()].height % 50) ) );
         tile.update(player);
         if (tile.playerSpace){
           fill(0,255,0,50);
@@ -114,34 +120,31 @@ public class Sketch extends PApplet {
   }
 
   // projectile calculatons
-  public void projectilecalc(){
-    double pAngle;
-    double pX, pY;
-    int pSpeed = 10;
-  
-    pAngle = Math.asin( (player.getY() - mouseY) / (Math.sqrt( Math.pow( (player.getX() - mouseX), 2) + Math.pow( (player.getY() - mouseY), 2) ) ) );
-    pX = pSpeed * Math.sin(90-pAngle);
-    pY = pSpeed * Math.sin(pAngle);
-    if (player.getX() - mouseX < 0){
-      pX *= -1;
-    }
+  public double getAngle(float x1, float x2, float y1, float y2){
+    double angle;
+    angle = Math.asin( (x1 - x2) / (Math.sqrt( Math.pow( (x1 - x2), 2) + Math.pow( (y1 - y2), 2) ) ) );
+    return angle;
   }
+
+  /**
+   * gets the X vector of another vector
+   * 
+   * @param magnitude hypotnuse or magnitude of the vector
+   * @param angle the angle of the vector
+   * @return 
+   */
+  public double getXVector(float magnitude, double angle){
+    double xVector;
+    xVector = magnitude * Math.cos(angle);
+    return xVector;
+  }
+
+  public double getYVector(float magnitude, double angle){
+    double yVector;
+    yVector = magnitude * Math.sin(angle);
+    return yVector;
+  }
+
   
-  // looking up a way to rotate an image
-  public static BufferedImage rotate(BufferedImage bimg, Double angle) {
-    double sin = Math.abs(Math.sin(Math.toRadians(angle))),
-           cos = Math.abs(Math.cos(Math.toRadians(angle)));
-    int w = bimg.getWidth();
-    int h = bimg.getHeight();
-    int neww = (int) Math.floor(w*cos + h*sin),
-        newh = (int) Math.floor(h*cos + w*sin);
-    BufferedImage rotated = new BufferedImage(neww, newh, bimg.getType());
-    Graphics2D graphic = rotated.createGraphics();
-    graphic.translate((neww-w)/2, (newh-h)/2);
-    graphic.rotate(Math.toRadians(angle), w/2, h/2);
-    graphic.drawRenderedImage(bimg, null);
-    graphic.dispose();
-    return rotated;
-}
 
 }
