@@ -5,10 +5,12 @@ public class Sketch extends PApplet {
 
   Player player = new Player(500, 400);
 
-  Map map = new Map(20, 10);
+  Map map = new Map(15, 10);
 
   PImage[] tileSprites;
   PImage[] enemySprites;
+
+  boolean clicked = false;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -30,15 +32,14 @@ public class Sketch extends PApplet {
       loadImage("sprites/DungeonBackWall.png"),         
       loadImage("sprites/DungeonRightWall.png"),        // id 2
       loadImage("sprites/DungeonLeftWall.png"),         
-      loadImage("sprites/DungeonRightCornerWall.png"),  
-      loadImage("sprites/DungeonLeftCornerWall.png"),   // id 5
-      
+      loadImage("sprites/DungeonRightCornerWall.png"),  // id 4
+      loadImage("sprites/DungeonLeftCornerWall.png"),   
+      loadImage("sprites/Pillar.png")                   // id 6
     };
 
-    enemySprites = new PImage[]{
-      loadImage("sprites/Pillar.png"),                  
+    enemySprites = new PImage[]{                
       loadImage("sprites/Skeleton.png"),                
-      
+
     };
   }
 
@@ -75,14 +76,19 @@ public class Sketch extends PApplet {
   }
 
   public void mousePressed(){
-    if (LEFT == mouseButton){
-
+    if (LEFT == mouseButton && !clicked){
+      clicked = true;
+      pushMatrix();
+      translate(player.x, player.y);
+      rotate( (float)getAngle(player.x, player.y, mouseX, mouseY) );
+      square(0, 20, 20);
+      popMatrix();
     }
   }
 
   public void mouseReleased(){
     if (LEFT == mouseButton){
-
+      clicked = false;
     }
   }
   
@@ -91,21 +97,30 @@ public class Sketch extends PApplet {
     circle( (int)player.getX(), (int)player.getY(), 30);
   }
 
-  public void displayEnemies(){
+  public void displayEntities(){
 
   }
 
-  public void displayMap(){
-    /* float mapSizeMulti;
-    if ( (map.getXLength() * 50) / width <= ( (map.YLength * 50) + 25)/ height){
-      mapSizeMulti = (map.getXLength() * 50) / width;
+  public void mapSetup(){
+    float mapSizeMulti;
+    if ( (map.getXLength() * 50) / width < ( (map.YLength * 50) + 25) / height){
+      mapSizeMulti = width / (map.getXLength() * 50);
     } else {
-      mapSizeMulti = ( (map.YLength * 50) + 25) / height;
-    } */
-    for (Map.Tile[] row : map.getMap()){ // would Tiles[] row be the rows or colunms?
+      mapSizeMulti = height / ( (map.YLength * 50) + 25);
+    }
+    for (Map.Tile[] row : map.getMap()){
       for (Map.Tile tile : row){
-        // sprites[tile.getSpriteID()].resize( (int)(sprites[tile.getSpriteID()].width * mapSizeMulti), 0);
-        image(tileSprites[tile.getSpriteID()], tile.getX() * 50, (tile.getY() * 50) + (25 - (tileSprites[tile.getSpriteID()].height % 50) ) );
+        PImage sprite = tileSprites[tile.getSpriteID()];
+        sprite.resize( (int)(sprite.width * mapSizeMulti), 0);
+      }
+    }
+  }
+
+  public void displayMap(){
+    for (Map.Tile[] row : map.getMap()){
+      for (Map.Tile tile : row){
+        PImage sprite = tileSprites[tile.getSpriteID()];
+        image(sprite, tile.getX() * 50, (tile.getY() * 50) + (25 - (sprite.height % 50) ) );
         tile.update(player);
         if (tile.playerSpace){
           fill(0,255,0,50);
@@ -114,13 +129,19 @@ public class Sketch extends PApplet {
       }
     }
 
-    for (Enemies enemy : Map.getEnemies() ){
-
-    }
+    //for (Enemies enemy : Map.getEnemies() ){}
   }
 
-  // projectile calculatons
-  public double getAngle(float x1, float x2, float y1, float y2){
+  /**
+   * gets the angle of 2 points
+   * 
+   * @param x1 x position of the first point
+   * @param y1 y position of the first point
+   * @param x2 x position of the second point
+   * @param y2 y position of the second point
+   * @return the angle of the first point and the second point relitive to the x axis
+   */
+  public double getAngle(float x1, float y1, float x2, float y2){
     double angle;
     angle = Math.asin( (x1 - x2) / (Math.sqrt( Math.pow( (x1 - x2), 2) + Math.pow( (y1 - y2), 2) ) ) );
     return angle;
@@ -131,7 +152,7 @@ public class Sketch extends PApplet {
    * 
    * @param magnitude hypotnuse or magnitude of the vector
    * @param angle the angle of the vector
-   * @return 
+   * @return the x vector of the main vector
    */
   public double getXVector(float magnitude, double angle){
     double xVector;
@@ -139,6 +160,13 @@ public class Sketch extends PApplet {
     return xVector;
   }
 
+  /**
+   * gets the Y vector of another vector
+   * 
+   * @param magnitude hypotnuse or magnitude of the vector
+   * @param angle the angle of the vector
+   * @return the Y vector of the main vector
+   */
   public double getYVector(float magnitude, double angle){
     double yVector;
     yVector = magnitude * Math.sin(angle);
